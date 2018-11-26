@@ -1,28 +1,21 @@
+module.exports = function(app, passport) {
+    app.get("/", function(req, res) {
+        res.render("login");
+    });
 
-module.exports = function(app, passport){
+    app.post("/login", function(req, res) {});
 
-	app.get('/', function(req,res){
-		res.render('login');
-	});
+    app.get("/signup", function(req, res) {
+        res.render("signup");
+    });
 
+    app.get(function(req, res) {
+        res.render("login");
+    });
 
-	app.post('/login', function(req,res){
+    function isLoggedIn(req, res, next) {
+        if (req.isAuthenticated()) return next();
 
-	});
-
-	app.get('/signup',function(req,res){
-		res.render('signup');
-	});
-
-	app.get(function(req,res){
-		res.render('login');
-	});
-
-	function isLoggedIn(req,res,next){
-    	if (req.isAuthenticated())
-        	return next();
-    	
-    	res.redirect('/');
-	}
-
-}
+        res.redirect("/");
+    }
+};
