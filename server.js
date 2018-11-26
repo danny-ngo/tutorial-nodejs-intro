@@ -23,9 +23,9 @@ app.use(cookieParser());
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/res/views");
 
-// app.use(session({ secret: "keyboardcat" }));
+app.use(session({ secret: "keyboardcat" }));
 app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.session());
 // setup routes
 require("./app/routes.js")(app, passport);
 
