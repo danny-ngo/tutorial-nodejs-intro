@@ -1,22 +1,38 @@
 {
-  "name": "package.json",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "cookie-parser": "^1.4.3",
-    "ejs": "^2.6.1",
-    "express": "^4.16.4",
-    "express-handlebars": "^3.0.0",
-    "express-session": "^1.15.6",
-    "mysql2": "^1.6.4",
-    "passport": "^0.4.0",
-    "sequelize": "^4.41.2"
-  }
+    "name": "package.json",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.{js,json,css,md}": [
+            "prettier --write",
+            "git add"
+        ]
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "cookie-parser": "^1.4.3",
+        "ejs": "^2.6.1",
+        "express": "^4.16.4",
+        "express-handlebars": "^3.0.0",
+        "express-session": "^1.15.6",
+        "mysql2": "^1.6.4",
+        "passport": "^0.4.0",
+        "sequelize": "^4.41.2"
+    },
+    "devDependencies": {
+        "husky": "^1.2.0",
+        "lint-staged": "^8.1.0",
+        "prettier": "^1.15.2"
+    }
 }
