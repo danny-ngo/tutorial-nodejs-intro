@@ -16,28 +16,18 @@ const User = sequelize.define("user", {
     password: Sequelize.STRING
 });
 
-User.beforeCreate((user, options) => {
-    return bcrypt.hash(user.password, bcrypt.genSaltSync(8), null, function(
-        err,
-        hashed
-    ) {
-        if (err) {
-            throw err;
-        }
-        user.password = hashed;
-    });
-});
+// User.beforeCreate((user, options) => {
+//     return bcrypt.hash(user.password, bcrypt.genSaltSync(8), null, function(
+//         err,
+//         hashed
+//     ) {
+//         if (err) {
+//             throw err;
+//         }
+//         user.password = hashed;
+//     });
+// });
 
-sequelize
-    .sync()
-    .then(() =>
-        User.create({
-            username: "janedoe",
-            password: "asdf"
-        })
-    )
-    .then(jane => {
-        console.log(jane.toJSON());
-    });
+sequelize.sync().then(res => console.log("CONNECTED"));
 
-module.exports = { User };
+module.exports = { sequelize, User };
