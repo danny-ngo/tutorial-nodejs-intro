@@ -1,10 +1,15 @@
 const Sequelize = require("sequelize");
 const bcrypt = require("bcrypt-nodejs");
 
-const sequelize = new Sequelize("tutorial", "root", "qweb-nodejs", {
-    host: "35.192.67.204",
-    dialect: "mysql"
-});
+const sequelize = new Sequelize(
+    "tutorial",
+    process.env.MYSQL_USER,
+    process.env.MYSQL_PASS,
+    {
+        host: process.env.MYSQL_HOST,
+        dialect: "mysql"
+    }
+);
 
 const User = sequelize.define("user", {
     username: Sequelize.STRING,
@@ -34,3 +39,5 @@ sequelize
     .then(jane => {
         console.log(jane.toJSON());
     });
+
+module.exports = { User };
