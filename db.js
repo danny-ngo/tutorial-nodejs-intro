@@ -16,18 +16,6 @@ const User = sequelize.define("user", {
     password: Sequelize.STRING
 });
 
-// User.beforeCreate((user, options) => {
-//     return bcrypt.hash(user.password, bcrypt.genSaltSync(8), null, function(
-//         err,
-//         hashed
-//     ) {
-//         if (err) {
-//             throw err;
-//         }
-//         user.password = hashed;
-//     });
-// });
-
-sequelize.sync().then(res => console.log("CONNECTED"));
+sequelize.sync().then(res => console.log("CONNECTED")); // Connect to the database using the credentials
 
 module.exports = { sequelize, User };

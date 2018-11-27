@@ -5,7 +5,7 @@
 require("dotenv").config();
 var express = require("express");
 var app = express();
-var port = process.env.PORT || 3000;
+var port = 3000;
 var passport = require("passport");
 
 var cookieParser = require("cookie-parser");
