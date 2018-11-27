@@ -6,9 +6,9 @@ const bcrypt = require("bcrypt-nodejs");
 const { User } = require("../db");
 
 // expose this function to our app using module.exports
-module.exports = passport => {
+module.exports = function(passport) {
     // used to serialize the user for the session
-    passport.serializeUser((user, done) => {
+    passport.serializeUser(function(user, done) {
         done(null, user.id);
     });
 
@@ -20,7 +20,7 @@ module.exports = passport => {
                 passwordField: "password",
                 passReqToCallback: true // allows us to pass back the entire request to the callback
             },
-            (req, username, password, done) => {
+            function(req, username, password, done) {
                 return User.findOne({ where: { username } })
                     .then(result => {
                         if (!result) {
@@ -40,8 +40,8 @@ module.exports = passport => {
     );
 
     // used to deserialize the user
-    passport.deserializeUser((id, done) => {
-        User.findById(id, (err, user) => {
+    passport.deserializeUser(function(id, done) {
+        User.findById(id, function(err, user) {
             done(err, user);
         });
     });
