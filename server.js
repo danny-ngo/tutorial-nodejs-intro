@@ -3,29 +3,34 @@
 // set up -------------------------
 // get all libraries
 require("dotenv").config();
-var express = require("express");
-var app = express();
-var port = 3000;
-var passport = require("passport");
+const express = require("express");
+const logger = require("morgan");
+const app = express();
+const port = 3000;
+const passport = require("passport");
+const flash = require("connect-flash");
 
-var cookieParser = require("cookie-parser");
-var bodyParser = require("body-parser");
-var session = require("express-session");
+const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
+const session = require("express-session");
 const { sequelize } = require("./db");
 // configuration -------------------
 
 require("./config/passport")(passport); // pass passport for configuration
 
-app.use(bodyParser());
-app.use(cookieParser());
+// set up our express application
+app.use(logger("dev")); // log every request to the console
+app.use(cookieParser()); // read cookies (needed for auth)
+app.use(bodyParser()); // get information from html forms
 
-// setup view engine
-app.set("view engine", "ejs");
-app.set("views", __dirname + "/res/views");
+app.set("view engine", "ejs"); // set up ejs for templating
 
-app.use(session({ secret: "keyboardcat" }));
+// required for passport
+app.use(session({ secret: "qweb-rocks" })); // session secret
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
 // setup routes
 require("./app/routes.js")(app, passport);
 
